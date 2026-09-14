@@ -1,0 +1,20 @@
+# Dependency folders
+node_modules/
+jspm_packages/
+web_modules/
+
+# Environment variables and secrets (CRITICAL for security)
+.env
+.env.local
+.env.production
+*.pem
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Build outputs and logs
+dist/
+build/
+*.log
+
