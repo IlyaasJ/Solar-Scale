@@ -1,42 +1,18 @@
-import * as THREE from 'three';
 import { Vector3 } from 'three';
-import { OrbitControls } from 'three/examples/jsm/Addons.js';
+import * as THREE from 'three';
+import { scene, camera, renderer } from './setup.js';
 
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight,
-    0.1, 10000);
+//Real-Data
+const REAL = {
+  earthRadius: 1,
+  earthTilt: 1,
+  moon: {radius: 0.273, distance: 60.3}, // 1 = Earth Radii
+  sun:  { radius: 109.2, distance: 23481 },  // 1 = Earth radii
+};
 
-const renderer = new THREE.WebGLRenderer();
-renderer.shadowMap.enabled = true;
-
-const cubeTextureLoader = new THREE.CubeTextureLoader();
-const TextureLoader = new THREE.TextureLoader();
-/*scene.background = cubeTextureLoader.setPath('/img/skybox3/').load([
-    'right.png',
-    'left.png',
-    'top.png',
-    'bottom.png',
-    'front.png',
-    'back.png'
-]);*/
-
-
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement)
-
-//Measures(Scale is 1:1)
-const Scale = 1 // : 1
-const Pi = Math.PI
-const EarthRadius = 0.3959 * Scale
-const EarthToMoon = 23.8
-const EarthToSun = 9300
-
-//Degrees
-let moonRad = 0;
-let interval = 0.5;
-let timeAcc = 0;
-const step = (Pi / 100);
+let SCALE = 1
+const toScene = (realUnits) => realUnits * SCALE;
 
 
 //Earth
@@ -65,9 +41,6 @@ scene.add(Moon)
 Moon.castShadow = true;
 Moon.receiveShadow = true;
 
-//OrbitControls
-const orbit = new OrbitControls(camera, renderer.domElement);
-orbit.update();
 
 //Light
 const ambientLight = new THREE.AmbientLight(0x333333);
